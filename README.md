@@ -36,13 +36,12 @@ python3 xssrecon.py --target https://example.com --crawl
 ## FAQ   
 * It doesnt recognize geckodriver on my system!   
 Try this,
-1. Run that script:
-`
-## Geckodriver
-wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
-sudo sh -c 'tar -x geckodriver -zf geckodriver-v0.23.0-linux64.tar.gz -O > /usr/bin/geckodriver'
-sudo chmod +x /usr/bin/geckodriver
-rm geckodriver-v0.23.0-linux64.tar.gz
+1. Run these commands:   
+`   
+wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz   
+sudo sh -c 'tar -x geckodriver -zf geckodriver-v0.23.0-linux64.tar.gz -O > /usr/bin/geckodriver'   
+sudo chmod +x /usr/bin/geckodriver   
+rm geckodriver-v0.23.0-linux64.tar.gz   
 `
 
 2. Then append 
