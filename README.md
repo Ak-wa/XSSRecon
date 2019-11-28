@@ -59,7 +59,8 @@ https://softwaretestingboard.com/q2a/2326/how-do-i-set-geckodriver-on-kali-linux
 Because of that there is the --delay argument :)
 
 * My terminal doesnt seem to work correctly with this tool, instead of showing "live" results it spams my terminal!   
-I am working on this, the tool works perfectly on Kali 2019.3, but on 2019.4 ive noticed it spams the terminal (though it does still run like a charm when you use xterm terminal)
+I am working on this, the tool works perfectly on Kali 2019.3, but on 2019.4 ive noticed it spams the terminal (though it does still run like a charm when you use the xterm terminal (for that, simply enter `xterm` into the default terminal)).
+If that happens to you, live with the spam or use the `--silent` argument, which only prints when it found a vulnerability
 
 * The crawler scans each href on the website, without checking for duplicates!   
 Im working on that, the crawler is experimental yet
