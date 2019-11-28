@@ -7,6 +7,7 @@
 
 * Scans a website for reflected Cross-Site-Scripting
 * Zero false positives, its using a real browser checking for the popups
+* Automatic out-of-scope checking (experimental, but works very well yet)
 * Uses Python 3.7 with selenium / geckodriver (chrome has anti-xss protections)
 * Crawler or single URL scanner
 * Configurable:   
