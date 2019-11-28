@@ -58,6 +58,9 @@ https://softwaretestingboard.com/q2a/2326/how-do-i-set-geckodriver-on-kali-linux
 * Its too fast! I think its not working correctly!   
 Because of that there is the --delay argument :)
 
+* My terminal doesnt seem to work correctly with this tool, instead of showing "live" results it spams my terminal!   
+I am working on this, the tool works perfectly on Kali 2019.3, but on 2019.4 ive noticed it spams the terminal (though it does still run like a charm when you use xterm terminal)
+
 * The crawler scans each href on the website, without checking for duplicates!   
 Im working on that, the crawler is experimental yet
 
