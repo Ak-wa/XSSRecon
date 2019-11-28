@@ -35,8 +35,25 @@ python3 xssrecon.py --target https://example.com --crawl
 
 ## FAQ   
 * It doesnt recognize geckodriver on my system!   
-Try this:   
+Try this,
+1. Run that script:
+`
+## Geckodriver
+wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz
+sudo sh -c 'tar -x geckodriver -zf geckodriver-v0.23.0-linux64.tar.gz -O > /usr/bin/geckodriver'
+sudo chmod +x /usr/bin/geckodriver
+rm geckodriver-v0.23.0-linux64.tar.gz
+`
+
+2. Then append 
+`export PATH=$PATH:[/usr/bin/geckodriver]`
+to ~/.bashrc
+
+3. type "bash" into terminal
+
+Sources:
 https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu
+https://softwaretestingboard.com/q2a/2326/how-do-i-set-geckodriver-on-kali-linux#axzz66Zfm8sCa
 
 * Its too fast! I think its not working correctly!   
 Because of that there is the --delay argument :)
