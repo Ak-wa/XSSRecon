@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import requests
 from parsel import Selector
 from colorama import Fore, Back, Style
