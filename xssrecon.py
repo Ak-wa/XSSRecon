@@ -23,33 +23,33 @@ class xssRecon:
         self.wordlist = "xss_payloads.txt"
         self.delay = 0
         self.used_parameters = []
-        
-    
+
+
     def logo(self):
         print(Fore.GREEN+"""
-        
+
 
  _     _ _______ _______  ______ _______ _______  _____  __   _
   \___/  |______ |______ |_____/ |______ |       |     | | \  |
  _/   \_ ______| ______| |    \_ |______ |_____  |_____| |  \_|
-                                                               
+
 
     XSSRecon - Automated refl. XSS Scanner
     http://1337.rocks
-    
+
     Usage: python3 xssrecon.py -h
            python3 xssrecon.py --target http://example.com/index.php?id=1
            python3 xssrecon.py --target http://example.com --crawl
-           
+
 """+Style.RESET_ALL)
-    
+
     def spawn_browser(self, visibility):
         self.options = Options()
         if visibility == False:
             self.options.headless = True
         if visibility == True:
             self.options.headless = False
-        self.profile = webdriver.FirefoxProfile() 
+        self.profile = webdriver.FirefoxProfile()
         self.profile.set_preference("permissions.default.image", 2)
         self.profile.set_preference("permissions.default.stylesheet", 2);
         self.driver = webdriver.Firefox(options=self.options,firefox_profile=self.profile)
@@ -67,7 +67,7 @@ class xssRecon:
             sys.exit()
         else:
             if self.silent == False:
-            
+
                 # Follow hrefs
                 for href in self.href_links:
                     #print("Current href: {}".format(href))
@@ -96,7 +96,7 @@ class xssRecon:
                                         self.usable_links.append(href)
                                     else:
                                         href = "/"+str(href)
-                                        print(Fore.GREEN+"| %s" % href)                        
+                                        print(Fore.GREEN+"| %s" % href)
                     # Check followed page hrefs for parameters
                     for href in href_links_follow:
                         if "=" in href:
@@ -116,7 +116,7 @@ class xssRecon:
                                         print(Fore.GREEN+"| %s" % href)
                                         self.usable_links.append(href)
                 if self.usable_links == []:
-                    print("[-] Could not find any usable links in webpage")         
+                    print("[-] Could not find any usable links in webpage")
         # Scanner
         print(Fore.YELLOW+"[i] Starting Scanner")
         for link in self.usable_links:
@@ -131,7 +131,7 @@ class xssRecon:
                     exploit_url = full_link.replace(last_param,payload)
                     self.single_xss_check(url=str(exploit_url), payload=payload, parameter=(full_link.split("=")[int(equal_counter)-1]))
 
-                        
+
         if self.vulns == []:
             print(Fore.YELLOW+"[-] No vulnerabilities found")
             self.driver.quit()
@@ -142,30 +142,30 @@ class xssRecon:
                 print("|", link)
             self.driver.quit()
             sys.exit()
-    
+
     def parameter_compare(self, param1, param2):
         param1 = param1.translate(None, digits)
         param2 = param2.translate(None, digits)
-        
+
         if param1 == param2:
             return False
         else:
             return True
     def check_scope(self, target, url):
         self.target_domain = tldextract.extract(self.target).registered_domain
-        
+
         url_domain = tldextract.extract(url)
         if url_domain.count(".") == 2: # Subdomain check
             print("Subdomain found")
         url_domain = url_domain.registered_domain
-        
+
         if str(self.target_domain) == str(url_domain):
             #print("[DEBUG] {} and {} are the same domain!".format(self.target_domain, url_domain))
             return True
         else:
             #print("Found out of scope domain: {}:{} with URL: {}".format(self.target_domain, url_domain, url))
             return False
-    
+
     def scan_one_url(self, url):
         print(Fore.YELLOW+"[i] Starting single URL scanner...")
         equal_counter = url.count("=")
@@ -225,6 +225,16 @@ Counter: {}
 
     def argument_parser(self):
         self.logo()
+        if args.setup:
+            print("[+] Creating /usr/bin/XSSRecon folder")
+            system('mkdir /usr/bin/XSSRecon')
+            print("[+] Cloning xssrecon.py into /usr/bin/XSSRecon/bin/XSSRecon")
+            system(
+                'wget https://raw.githubusercontent.com/Ak-wa/XSSRecon/master/xssrecon.py -O /usr/bin/XSSRecon/xssrecon')
+            system("chmod +x /usr/bin/XSSRecon")
+            print("[+] Setting up XSSRecon")
+            system("ln -s /usr/bin/XSSRecon/ /usr/local/bin")
+            print("[+] Done, you can now use XSSRecon from anywhere! Just type 'xssrecon'")
         if args.delay:
             self.delay = args.delay
         if args.silent:
@@ -246,7 +256,7 @@ Counter: {}
                     print("[!] Please use --crawl or pass a full url with a parameter to test (e.g http://example.com/index.php?id=1)")
                     self.driver.quit()
                     sys.exit()
-    
+
     def run(self):
         try:
             self.parse_payload_file()
@@ -269,8 +279,9 @@ if __name__ == '__main__':
     parser.add_argument("--crawl", help="Crawl page automatically & test everything for XSS", action="store_true")
     parser.add_argument("--silent", help="Silent mode (less output)", action="store_true")
     parser.add_argument("--visible", help="Shows browser while testing (may slow down)", action="store_true")
+    parser.add_argument("--setup", help="Sets up XSSRecon with symlink to access it from anywhere")
     args = parser.parse_args()
     #print(args.echo)
-    
+
     scanner = xssRecon(args)
     scanner.run()
