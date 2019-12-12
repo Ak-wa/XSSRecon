@@ -279,7 +279,7 @@ if __name__ == '__main__':
     parser.add_argument("--crawl", help="Crawl page automatically & test everything for XSS", action="store_true")
     parser.add_argument("--silent", help="Silent mode (less output)", action="store_true")
     parser.add_argument("--visible", help="Shows browser while testing (may slow down)", action="store_true")
-    parser.add_argument("--setup", help="Sets up XSSRecon with symlink to access it from anywhere")
+    parser.add_argument("--setup", help="Sets up XSSRecon with symlink to access it from anywhere", action="store_true")
     args = parser.parse_args()
     #print(args.echo)
 
