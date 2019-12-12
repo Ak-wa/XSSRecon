@@ -10,6 +10,7 @@ import sys
 import argparse
 import tldextract
 from string import digits
+from os import system
 
 class xssRecon:
     def __init__(self,arguments):
@@ -228,12 +229,13 @@ Counter: {}
         if args.setup:
             print("[+] Creating /usr/bin/XSSRecon folder")
             system('mkdir /usr/bin/XSSRecon')
+            system("mkdir /usr/bin/XSSRecon/bin")
             print("[+] Cloning xssrecon.py into /usr/bin/XSSRecon/bin/XSSRecon")
             system(
-                'wget https://raw.githubusercontent.com/Ak-wa/XSSRecon/master/xssrecon.py -O /usr/bin/XSSRecon/xssrecon')
-            system("chmod +x /usr/bin/XSSRecon")
+                'wget https://raw.githubusercontent.com/Ak-wa/XSSRecon/master/xssrecon.py -O /usr/bin/XSSRecon/bin/xssrecon')
+            system("chmod +x /usr/bin/XSSRecon/bin/xssrecon")
             print("[+] Setting up XSSRecon")
-            system("ln -s /usr/bin/XSSRecon/ /usr/local/bin")
+            system("ln -s /usr/bin/XSSRecon/bin/xssrecon /usr/local/bin")
             print("[+] Done, you can now use XSSRecon from anywhere! Just type 'xssrecon'")
             sys.exit()
         else:
