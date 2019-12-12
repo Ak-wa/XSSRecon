@@ -235,27 +235,29 @@ Counter: {}
             print("[+] Setting up XSSRecon")
             system("ln -s /usr/bin/XSSRecon/ /usr/local/bin")
             print("[+] Done, you can now use XSSRecon from anywhere! Just type 'xssrecon'")
-        if args.delay:
-            self.delay = args.delay
-        if args.silent:
-            self.silent = True
-        if args.wordlist:
-            self.wordlist = args.wordlist
-        if args.visible:
-            self.spawn_browser(visibility=True)
+            sys.exit()
         else:
-            self.spawn_browser(visibility=False)
-        if args.target:
-            self.target = str(args.target)
-            if args.crawl:
-                self.crawl_and_test(target=self.target)
+            if args.delay:
+                self.delay = args.delay
+            if args.silent:
+                self.silent = True
+            if args.wordlist:
+                self.wordlist = args.wordlist
+            if args.visible:
+                self.spawn_browser(visibility=True)
             else:
-                if "=" in self.target:
-                    self.scan_one_url(self.target)
+                self.spawn_browser(visibility=False)
+            if args.target:
+                self.target = str(args.target)
+                if args.crawl:
+                    self.crawl_and_test(target=self.target)
                 else:
-                    print("[!] Please use --crawl or pass a full url with a parameter to test (e.g http://example.com/index.php?id=1)")
-                    self.driver.quit()
-                    sys.exit()
+                    if "=" in self.target:
+                        self.scan_one_url(self.target)
+                    else:
+                        print("[!] Please use --crawl or pass a full url with a parameter to test (e.g http://example.com/index.php?id=1)")
+                        self.driver.quit()
+                        sys.exit()
 
     def run(self):
         try:
