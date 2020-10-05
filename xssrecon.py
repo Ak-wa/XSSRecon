@@ -5,7 +5,7 @@ from colorama import Fore, Back, Style
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 import threading
 import sys
 import argparse
@@ -54,7 +54,7 @@ class xssRecon:
         self.profile = webdriver.FirefoxProfile()
         self.profile.set_preference("permissions.default.image", 2)
         self.profile.set_preference("permissions.default.stylesheet", 2);
-        self.driver = webdriver.Firefox(options=self.options,firefox_profile=self.profile)
+        self.driver = webdriver.Chrome(options=self.options)
 
     def crawl_and_test(self, target):
         print(Fore.YELLOW+"[i] Starting crawler...")
