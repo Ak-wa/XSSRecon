@@ -8,7 +8,7 @@
 * Scans a website for reflected Cross-Site-Scripting
 * Zero false positives, its using a real browser checking for the popups
 * Automatic out-of-scope checking (experimental, but works very well yet)
-* Uses Python 3.7 with selenium / geckodriver (chrome has anti-xss protections)
+* Uses Python 3.7 with selenium / chromedriver
 * Crawler or single URL scanner
 * Configurable:   
 --target | Target to scan   
@@ -35,25 +35,22 @@ python3 xssrecon.py --target https://example.com --crawl
 ![](xssrecon3.gif)   
 
 ## FAQ   
-* It doesnt recognize geckodriver on my system!   
-Solution:
-1. Run these commands:   
-```   
-wget https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-linux64.tar.gz   
-sh -c 'tar -x geckodriver -zf geckodriver-v0.23.0-linux64.tar.gz -O > /usr/bin/geckodriver' 
-chmod +x /usr/bin/geckodriver   
-rm geckodriver-v0.23.0-linux64.tar.gz   
+* It doesnt recognize chromedriver on my system!   
+Solution:   
+Quick install script:
+```
+sudo apt-get install unzip &&
+a=$(uname -m) &&
+rm -r /tmp/chromedriver/
+mkdir /tmp/chromedriver/ &&
+wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE &&
+if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi &&
+latest=$(cat /tmp/chromedriver/LATEST_RELEASE) &&
+wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' &&
+sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ &&
+echo 'success?'   
 ```
 
-2. Then append 
-`export PATH=$PATH:[/usr/bin/geckodriver]`
-to ~/.bashrc
-
-3. type "bash" into terminal
-
-    Sources:   
-   https://askubuntu.com/questions/870530/how-to-install-geckodriver-in-ubuntu
-   https://softwaretestingboard.com/q2a/2326/how-do-i-set-geckodriver-on-kali-linux#axzz66Zfm8sCa
 
 * Its too fast! I think its not working correctly!   
 Because of that there is the --delay argument :)
