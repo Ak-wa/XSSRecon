@@ -15,7 +15,7 @@
 --crawl | Activate crawler   
 --wordlist | Wordlist to use   
 --delay | Delay between requests   
---visible | Visible browser for debugging (geckodriver/firefox)   
+--visible | Visible browser for debugging (chromedriver)   
 --silent | Only print when vulns have been found   
 
 ## Usage & examples
